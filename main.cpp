@@ -6,7 +6,7 @@
  * areas. It handles all file and data exceptions.
  *
  * @author [Gael Garcia Guzman]
- * @date [4/4/20206]
+ * @date [April 4, 2026]
  * @version 1.0
  */
 
@@ -61,37 +61,42 @@ int main() {
     cout << "--- Processing Shapes ---" << endl;
     string shapeType;
 
-    // STUDENT TODO: Wrap the entire 'while' loop in a try...catch block
-    // that catches a ParseException.
-
     // Read from the file one "word" at a time
     while (file >> shapeType) {
         lineNumber++;
-
         try {
             if (shapeType == "square") {
                 double side;
                 file >> side;
-
-                double area = calculateArea(side);
-                cout << "Line " << lineNumber << ": Square Area: " << area << endl;
-
-            } else if (shapeType == "rectangle") {
+                try {
+                    double area = calculateArea(side);
+                    cout << "Line " << lineNumber << ": Square Area: " << area << endl;
+                } catch (const std::invalid_argument& e) {
+                    cerr << "Line " << lineNumber << ": Error: " << e.what() << endl;
+                }
+            }
+            else if (shapeType == "rectangle") {
                 double length, width;
                 file >> length >> width;
-
-                double area = calculateArea(length, width);
-                cout << "Line " << lineNumber << ": Rectangle Area: " << area << endl;
-
-            } else if (shapeType == "circle") {
+                try {
+                    double area = calculateArea(length, width);
+                    cout << "Line " << lineNumber << ": Rectangle Area: " << area << endl;
+                } catch (const std::invalid_argument& e) {
+                    cerr << "Line " << lineNumber << ": Error: " << e.what() << endl;
+                }
+            }
+            else if (shapeType == "circle") {
                 double radius;
                 file >> radius;
-
-                double area = calculateCircleArea(radius);
-                cout << "Line " << lineNumber << ": Circle Area: " << area << endl;
-
-            } else {
-                throw ParseException("Unknown shape type: " + shapeType);
+                try {
+                    double area = calculateCircleArea(radius);
+                    cout << "Line " << lineNumber << ": Circle Area: " << area << endl;
+                } catch (const std::invalid_argument& e) {
+                    cerr << "Line " << lineNumber << ": Error: " << e.what() << endl;
+                }
+            }
+            else {
+                throw ParseException("Unknown shape type: " + shapeType + " on line " + to_string(lineNumber));
             }
         } catch (const std::invalid_argument& e) {
             cerr << "Math Error (Line " << lineNumber << "): " << e.what() << endl;
@@ -107,6 +112,6 @@ int main() {
     // --- 3. Cleanup ---
     cout << "--- Processing Complete ---" << endl;
     file.close();
-    
+
     return 0; // Successful execution
 }

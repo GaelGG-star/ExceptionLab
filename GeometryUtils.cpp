@@ -10,7 +10,7 @@
  * validating input and throwing exceptions on invalid data.
  *
  * @author [Gael Garcia Guzman]
- * @date [4/4/2026]
+ * @date [April 4, 2026]
  * @version 1.0
  */
 
@@ -25,9 +25,6 @@ using namespace std;
  * @brief Calculates the area of a square.
  */
 double calculateArea(double side) {
-    // STUDENT TODO: Replace this 'if' block with a
-    // 'throw std::invalid_argument' exception.
-    // Example: throw std::invalid_argument("Side cannot be zero or negative: " + std::to_string(side));
     if (side <= 0) {
         throw std::invalid_argument("Side cannot be zero or negative: " + std::to_string(side));
     }
@@ -39,8 +36,6 @@ double calculateArea(double side) {
  * @brief Calculates the area of a rectangle (Overloaded).
  */
 double calculateArea(double length, double width) {
-    // STUDENT TODO: Replace this 'if' block with a
-    // 'throw std::invalid_argument' exception.
     if (length <= 0 || width <= 0) {
         throw std::invalid_argument("Error: Invalid dimensions for rectangle: " + std::to_string(length) + ", " +
             std::to_string(width));
@@ -53,8 +48,6 @@ double calculateArea(double length, double width) {
  * @brief Calculates the area of a circle.
  */
 double calculateCircleArea(double radius) {
-    // STUDENT TODO: Replace this 'if' block with a
-    // 'throw std::invalid_argument' exception.
     if (radius <= 0) {
         throw std::invalid_argument("Error: Invalid radius for circle: " + std::to_string(radius));
     }
@@ -62,4 +55,3 @@ double calculateCircleArea(double radius) {
     const double PI = 3.1415926535; // A more precise PI
     return PI * radius * radius;
 }
-

@@ -6,7 +6,7 @@
  * including FileOpenException and ParseException.
  *
  * @author [Gael Garcia Guzman]
- * @date [4/4/2026]
+ * @date [April 4, 2026]
  * @version 1.0
  */
 

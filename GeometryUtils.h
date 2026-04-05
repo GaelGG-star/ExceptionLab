@@ -9,7 +9,7 @@
  * overloaded 'calculateArea' function and a 'calculateCircleArea' function.
  *
  * @author [Gael Garcia Guzman]
- * @date [4/4/2026]
+ * @date [April 4, 2026]
  * @version 1.0
  */
 //this is an alternative method of preventing multiple compile attempts on this file

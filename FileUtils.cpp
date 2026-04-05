@@ -6,7 +6,7 @@
  * @brief Implements utility functions for handling file operations.
  *
  * @author [Gael Garcia Guzman]
- * @date [4/4/2026]
+ * @date [April 4, 2026]
  * @version 1.0
  */
 
@@ -27,26 +27,19 @@ using namespace std;
  * @param initialFilename The first filename to try.
  */
 void openFileForReading(std::ifstream& file, std::string initialFilename) {
-    // STUDENT TODO: Replace the following 'if' block with a
-    // try...catch block that throws and catches a FileOpenException.
-
-    file.open(initialFilename);
-    // 1. Wrap the initial attempt in a try block
     try {
         file.open(initialFilename);
 
-        // 2. Instead of an 'if', we check and THROW
+        // 1. If it fails, THROW the exception
         if (!file.is_open()) {
             throw FileOpenException("Error: File could not be opened: " + initialFilename);
         }
 
-        // 3. This was your 'else' logic—it only runs if no exception is thrown
+        // If we get here, the first file opened successfully
         cout << "File opened successfully: " << initialFilename << endl;
 
-    }
-    // 4. Create the catch block to handle the error
-    catch (const FileOpenException& e) {
-        // STUDENT TODO (Line 38): This retry logic belongs in the 'catch' block
+    } catch (const FileOpenException& e) {
+        // 2. CATCH the exception and run the fallback logic
         cerr << e.what() << endl;
 
         string alternativeFilename;
@@ -57,6 +50,7 @@ void openFileForReading(std::ifstream& file, std::string initialFilename) {
 
         if (!file.is_open()) {
             cerr << "Error: Failed to open alternative file. Exiting." << endl;
+            // The starter code comment explicitly says to exit(1) here for this lab
             exit(1);
         }
 
