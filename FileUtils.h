@@ -9,8 +9,8 @@
  * @file FileUtils.h
  * @brief Declares utility functions for handling file operations.
  *
- * @author [Your Name Here]
- * @date [Current Date]
+ * @author [Gael Garcia Guzman]
+ * @date [4/4/2026]
  * @version 1.0
  */
 
@@ -28,7 +28,7 @@
  * @param file The ifstream object to be opened (passed by reference).
  * @param initialFilename The first filename to try.
  */
-void openFileForReading(std::ifstream& file, std::string initialFilename);
+void openFileForReading(std::ifstream& file, const std::string initialFilename);
 
 
 #endif //ERRORHANDLING_UTILITIES_H

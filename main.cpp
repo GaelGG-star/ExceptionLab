@@ -5,8 +5,8 @@
  * This program reads shape data from a file, validates it, and calculates
  * areas. It handles all file and data exceptions.
  *
- * @author [Your Name Here]
- * @date [Current Date]
+ * @author [Gael Garcia Guzman]
+ * @date [4/4/20206]
  * @version 1.0
  */
 
@@ -48,7 +48,13 @@ int main() {
 
     // Call the new utility function to handle the entire file-opening process.
     // We pass 'file' by reference to be opened, and 'filename' by value.
-    openFileForReading(file, filename);
+    try {
+        openFileForReading(file, filename);
+    } catch (const FileOpenException& e) {
+        // If the file fails to open, print the error and stop the program
+        cerr << "Critical Error: " << e.what() << endl;
+        return 1;
+    }
 
 
     // --- 2. File Parsing Logic ---
@@ -57,48 +63,45 @@ int main() {
 
     // STUDENT TODO: Wrap the entire 'while' loop in a try...catch block
     // that catches a ParseException.
-    
+
     // Read from the file one "word" at a time
     while (file >> shapeType) {
         lineNumber++;
 
-        if (shapeType == "square") {
-            double side;
-            file >> side;
-            
-            // STUDENT TODO: Wrap the call to calculateArea in a 
-            // try...catch block to handle std::invalid_argument.
-            double area = calculateArea(side); // Call library function
-            cout << "Line " << lineNumber << ": Square Area: " << area << endl;
+        try {
+            if (shapeType == "square") {
+                double side;
+                file >> side;
 
-        }
-        else if (shapeType == "rectangle") {
-            double length, width;
-            file >> length >> width;
-            
-            // STUDENT TODO: Wrap the call to calculateArea in a 
-            // try...catch block to handle std::invalid_argument.
-            double area = calculateArea(length, width); // Call overloaded library function
-            cout << "Line " << lineNumber << ": Rectangle Area: " << area << endl;
-        }
-        else if (shapeType == "circle") {
-            double radius;
-            file >> radius;
+                double area = calculateArea(side);
+                cout << "Line " << lineNumber << ": Square Area: " << area << endl;
 
-            // STUDENT TODO: Wrap the call to calculateCircleArea in a 
-            // try...catch block to handle std::invalid_argument.
-            double area = calculateCircleArea(radius); // Call library function
-            cout << "Line " << lineNumber << ": Circle Area: " << area << endl;
-        }
-        else {
-            // STUDENT TODO: Replace this 'cerr' statement with a 
-            // 'throw ParseException("Unknown shape type: " + shapeType, lineNumber);'
-            cerr << "Line " << lineNumber << ": Error: Unknown shape type: " << shapeType << endl;
+            } else if (shapeType == "rectangle") {
+                double length, width;
+                file >> length >> width;
+
+                double area = calculateArea(length, width);
+                cout << "Line " << lineNumber << ": Rectangle Area: " << area << endl;
+
+            } else if (shapeType == "circle") {
+                double radius;
+                file >> radius;
+
+                double area = calculateCircleArea(radius);
+                cout << "Line " << lineNumber << ": Circle Area: " << area << endl;
+
+            } else {
+                throw ParseException("Unknown shape type: " + shapeType);
+            }
+        } catch (const std::invalid_argument& e) {
+            cerr << "Math Error (Line " << lineNumber << "): " << e.what() << endl;
+        } catch (const ParseException& e) {
+            cerr << "Parse Error (Line " << lineNumber << "): " << e.what() << endl;
+        } catch (const exception& e) {
+            // General catch-all for any other unexpected errors
+            cerr << "Unexpected Error (Line " << lineNumber << "): " << e.what() << endl;
         }
     }
-    
-    // The catch block for ParseException should go here.
-    // catch (const ParseException& e) { ... }
 
 
     // --- 3. Cleanup ---
@@ -107,4 +110,3 @@ int main() {
     
     return 0; // Successful execution
 }
-

@@ -9,4 +9,6 @@ add_executable(ErrorHandling main.cpp
         GeometryUtils.cpp
         GeometryUtils.h
         Exceptions.cpp
-        Exceptions.h)
+        Exceptions.h
+        shapes.txt
+        data.txt)

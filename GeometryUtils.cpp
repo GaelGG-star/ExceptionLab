@@ -9,8 +9,8 @@
  * of squares, rectangles, and circles. It is responsible for
  * validating input and throwing exceptions on invalid data.
  *
- * @author [Your Name Here]
- * @date [Current Date]
+ * @author [Gael Garcia Guzman]
+ * @date [4/4/2026]
  * @version 1.0
  */
 
@@ -29,8 +29,7 @@ double calculateArea(double side) {
     // 'throw std::invalid_argument' exception.
     // Example: throw std::invalid_argument("Side cannot be zero or negative: " + std::to_string(side));
     if (side <= 0) {
-        cerr << "Error: Invalid side for square: " << side << endl;
-        return 0; // Return 0 on error for now
+        throw std::invalid_argument("Side cannot be zero or negative: " + std::to_string(side));
     }
 
     return side * side;
@@ -43,9 +42,8 @@ double calculateArea(double length, double width) {
     // STUDENT TODO: Replace this 'if' block with a
     // 'throw std::invalid_argument' exception.
     if (length <= 0 || width <= 0) {
-        cerr << "Error: Invalid dimensions for rectangle: "
-             << length << ", " << width << endl;
-        return 0; // Return 0 on error for now
+        throw std::invalid_argument("Error: Invalid dimensions for rectangle: " + std::to_string(length) + ", " +
+            std::to_string(width));
     }
 
     return length * width;
@@ -58,8 +56,7 @@ double calculateCircleArea(double radius) {
     // STUDENT TODO: Replace this 'if' block with a
     // 'throw std::invalid_argument' exception.
     if (radius <= 0) {
-        cerr << "Error: Invalid radius for circle: " << radius << endl;
-        return 0; // Return 0 on error for now
+        throw std::invalid_argument("Error: Invalid radius for circle: " + std::to_string(radius));
     }
 
     const double PI = 3.1415926535; // A more precise PI
